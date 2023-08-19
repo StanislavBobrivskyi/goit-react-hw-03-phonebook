@@ -18,7 +18,9 @@ export function ContactList({ contacts, onDeleteContact, onDeleteAll }) {
           </DeleteBtn>
         </ItemStyle>
       ))}
-      <DeleteAllBtn onClick={onDeleteAll}>Delete All</DeleteAllBtn>
+      {contacts.length > 0 && (
+        <DeleteAllBtn onClick={onDeleteAll}>Delete All</DeleteAllBtn>
+      )}
     </ListWrapper>
   );
 }
