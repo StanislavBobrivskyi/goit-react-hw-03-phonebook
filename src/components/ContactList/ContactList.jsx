@@ -1,8 +1,13 @@
 import React from 'react';
 
-import { ListWrapper, ItemStyle, DeleteBtn } from './ContactList.styled';
+import {
+  ListWrapper,
+  ItemStyle,
+  DeleteBtn,
+  DeleteAllBtn,
+} from './ContactList.styled';
 
-export function ContactList({ contacts, onDeleteContact }) {
+export function ContactList({ contacts, onDeleteContact, onDeleteAll }) {
   return (
     <ListWrapper>
       {contacts.map(contact => (
@@ -13,6 +18,7 @@ export function ContactList({ contacts, onDeleteContact }) {
           </DeleteBtn>
         </ItemStyle>
       ))}
+      <DeleteAllBtn onClick={onDeleteAll}>Delete All</DeleteAllBtn>
     </ListWrapper>
   );
 }

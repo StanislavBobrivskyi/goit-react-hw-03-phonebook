@@ -4,23 +4,33 @@ import { ContactForm } from './ContactForm/ContactForm';
 import { ContactList } from './ContactList/ContactList';
 import { ContactFilter } from './ContactFiltr/ContactFilter';
 
+const localStorageKey = 'contacts';
+
 export class App extends Component {
   state = {
     contacts: [],
     filter: '',
   };
 
+  deleteAllContacts = () => {
+    this.setState({
+      contacts: [],
+      filter: '',
+    });
+  };
+
   componentDidMount() {
-    const savedContacts = localStorage.getItem('contacts');
+    const savedContacts = localStorage.getItem(localStorageKey);
     if (savedContacts !== null) {
       this.setState({ contacts: JSON.parse(savedContacts) });
     }
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { contacts } = this.state;
-    if (contacts !== prevState.contacts) {
-      localStorage.setItem('contacts', JSON.stringify(contacts));
+    const { contacts: prevContacts } = prevState;
+    const { contacts: newContacts } = this.state;
+    if (newContacts !== prevContacts) {
+      localStorage.setItem(localStorageKey, JSON.stringify(newContacts));
     }
   }
 
@@ -79,6 +89,7 @@ export class App extends Component {
         <ContactList
           contacts={filteredContacts}
           onDeleteContact={this.handleDeleteContact}
+          onDeleteAll={this.deleteAllContacts}
         />
       </div>
     );
